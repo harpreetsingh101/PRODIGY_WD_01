@@ -1,30 +1,102 @@
-// Elements
-const entryScreen = document.getElementById("entry-screen");
+// ================= ELEMENTS =================
+const entry = document.getElementById("entry");
 const app = document.getElementById("app");
-const enterBtn = document.getElementById("enter-btn");
-const navLinks = document.querySelectorAll(".nav-link");
+const startBtn = document.getElementById("startApp");
 
-// Switch from entry screen to app
-enterBtn.addEventListener("click", () => {
-    entryScreen.classList.add("hidden");
-    app.classList.remove("hidden");
+const navBtns = document.querySelectorAll(".nav-btn");
+const views = document.querySelectorAll(".view");
+
+const counters = document.querySelectorAll(".counter");
+
+const noteBox = document.getElementById("noteBox");
+const saveNoteBtn = document.getElementById("saveNote");
+const noteStatus = document.getElementById("noteStatus");
+
+const themeToggle = document.getElementById("themeToggle");
+
+const modal = document.getElementById("modal");
+const openModalBtn = document.getElementById("openModal");
+const closeModalBtn = document.getElementById("closeModal");
+
+// ================= ENTRY → APP =================
+startBtn.addEventListener("click", () => {
+  entry.classList.add("hidden");
+  app.classList.remove("hidden");
+  runCounters();
 });
 
-// Active nav link on scroll
-window.addEventListener("scroll", () => {
-    let current = "";
+// ================= NAVIGATION =================
+navBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    navBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
-    document.querySelectorAll("section").forEach(section => {
-        const sectionTop = section.offsetTop - 140;
-        if (scrollY >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-    });
+    const viewId = btn.dataset.view;
 
-    navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-        }
+    views.forEach(view => {
+      view.classList.remove("active");
+      if (view.id === viewId) {
+        view.classList.add("active");
+      }
     });
+  });
+});
+
+// ================= COUNTER ANIMATION =================
+function runCounters() {
+  counters.forEach(counter => {
+    counter.innerText = "0";
+    const target = +counter.dataset.target;
+    let current = 0;
+    const increment = target / 40;
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        counter.innerText = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    update();
+  });
+}
+
+// ================= NOTES (LOCAL STORAGE) =================
+noteBox.value = localStorage.getItem("userNote") || "";
+
+saveNoteBtn.addEventListener("click", () => {
+  localStorage.setItem("userNote", noteBox.value);
+  noteStatus.innerText = "Note saved ✔";
+  setTimeout(() => (noteStatus.innerText = ""), 2000);
+});
+
+// ================= THEME TOGGLE =================
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  document.body.classList.add("light");
+}
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
+});
+
+// ================= MODAL =================
+openModalBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+});
+
+closeModalBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
 });
