@@ -243,3 +243,53 @@ button:active {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+/* ===== TO-DO TOOL ===== */
+.todo-box {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.todo-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+#todoList {
+  list-style: none;
+  margin-top: 20px;
+}
+
+#todoList li {
+  background: rgba(255,255,255,0.08);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideFade 0.4s ease;
+}
+
+#todoList li button {
+  background: crimson;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
