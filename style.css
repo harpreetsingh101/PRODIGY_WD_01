@@ -1,4 +1,3 @@
-/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
@@ -8,21 +7,22 @@
 
 body {
   background: #0f1220;
-  color: #fff;
-  overflow: hidden;
+  color: white;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* ========== ENTRY SCREEN ========== */
+/* ENTRY */
 .entry {
-  height: 100vh;
+  position: fixed;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   background: radial-gradient(circle at top, #1e2150, #0f1220);
+  z-index: 1000;
 }
 
 .entry-box {
@@ -34,42 +34,24 @@ body {
   animation: fadeIn 1s ease;
 }
 
-.entry-box h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.entry-box p {
-  opacity: 0.85;
-  margin-bottom: 30px;
-}
-
 .entry-box button {
   padding: 14px 36px;
   border-radius: 30px;
   border: none;
   background: linear-gradient(135deg, #00f2fe, #4facfe);
-  font-weight: bold;
   cursor: pointer;
 }
 
-/* ========== APP LAYOUT ========== */
+/* APP */
 .app {
   display: flex;
   height: 100vh;
 }
 
-/* ========== SIDEBAR ========== */
 .sidebar {
   width: 230px;
   background: #151835;
   padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar h2 {
-  margin-bottom: 40px;
 }
 
 .nav-btn {
@@ -78,19 +60,16 @@ body {
   color: #ccc;
   padding: 12px;
   text-align: left;
-  cursor: pointer;
   border-radius: 8px;
+  cursor: pointer;
   margin-bottom: 10px;
-  transition: background 0.3s, color 0.3s;
 }
 
-.nav-btn:hover,
-.nav-btn.active {
+.nav-btn.active, .nav-btn:hover {
   background: #1f2355;
   color: #00f2fe;
 }
 
-/* ========== MAIN CONTENT ========== */
 .main {
   flex: 1;
   padding: 40px;
@@ -106,11 +85,11 @@ body {
   display: block;
 }
 
+/* CARDS */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 20px;
-  margin-top: 30px;
 }
 
 .card {
@@ -119,25 +98,9 @@ body {
   text-align: center;
   border-radius: 14px;
   font-size: 2rem;
-  transition: transform 0.3s;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-}
-
-/* ========== NOTES ========== */
-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 15px;
-  border-radius: 10px;
-  border: none;
-  resize: none;
-  margin-bottom: 15px;
-}
-
-/* ========== MODAL ========== */
+/* MODAL */
 .modal {
   position: fixed;
   inset: 0;
@@ -151,145 +114,40 @@ textarea {
   background: #1a1d40;
   padding: 30px;
   border-radius: 14px;
-  animation: scaleIn 0.3s ease;
 }
 
-/* ========== LIGHT THEME ========== */
+/* TODO */
+.todo-box {
+  display: flex;
+  gap: 10px;
+}
+
+#todoList li {
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* LIGHT THEME */
 body.light {
   background: #f2f4ff;
-  color: #000;
+  color: black;
 }
 
 body.light .sidebar {
   background: #e2e6ff;
 }
 
-body.light .nav-btn.active {
-  background: #cfd6ff;
-}
-
-/* ========== ANIMATIONS ========== */
+/* ANIMATIONS */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; }
 }
 
 @keyframes slideIn {
   from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-/* ===== MICRO INTERACTIONS ===== */
-
-/* Button press effect */
-button {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-/* View transition enhancement */
-.view {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.view.active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-/* Sidebar glow effect */
-.nav-btn:hover {
-  box-shadow: inset 0 0 0 1px rgba(0,242,254,0.3);
-}
-
-/* Dashboard card stagger animation */
-.card {
-  opacity: 0;
-  animation: cardFade 0.5s ease forwards;
-}
-
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-
-@keyframes cardFade {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Modal smooth close */
-.modal.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.modal {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-/* ===== TO-DO TOOL ===== */
-.todo-box {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.todo-box input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-}
-
-#todoList {
-  list-style: none;
-  margin-top: 20px;
-}
-
-#todoList li {
-  background: rgba(255,255,255,0.08);
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: slideFade 0.4s ease;
-}
-
-#todoList li button {
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-@keyframes slideFade {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  to { opacity: 1; }
 }
