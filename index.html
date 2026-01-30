@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Landing Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Landing Page</title>
 
-    <!-- Link CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -15,46 +15,71 @@
         <nav class="navbar">
             <div class="logo">Prodigy</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- ===== HERO SECTION ===== -->
+    <!-- ===== HERO ===== -->
     <section id="home" class="hero">
-        <h1>Welcome to My Landing Page</h1>
-        <p>This is a responsive landing page built for Prodigy InfoTech Internship.</p>
+        <h1>Build. Learn. Grow.</h1>
+        <p>A premium responsive landing page for Prodigy InfoTech Internship</p>
+        <a href="#features" class="btn">Explore Features</a>
     </section>
 
-    <!-- ===== ABOUT SECTION ===== -->
+    <!-- ===== ABOUT ===== -->
     <section id="about" class="about">
-        <h2>About</h2>
+        <h2>About This Project</h2>
         <p>
-            This landing page demonstrates a fixed navigation bar,
-            hover effects, and scroll-based interactivity using HTML, CSS, and JavaScript.
+            This project demonstrates a professional landing page with a fixed
+            navigation bar, smooth scrolling, hover effects, and scroll-based
+            interactivity using HTML, CSS, and JavaScript.
         </p>
     </section>
 
-    <!-- ===== FEATURES SECTION ===== -->
+    <!-- ===== FEATURES ===== -->
     <section id="features" class="features">
-        <h2>Features</h2>
-        <ul>
-            <li>Fixed Navigation Bar</li>
-            <li>Hover Effects</li>
-            <li>Scroll Interaction</li>
-            <li>Responsive Design</li>
-        </ul>
+        <h2>Key Features</h2>
+
+        <div class="feature-grid">
+            <div class="card">
+                <h3>Fixed Navbar</h3>
+                <p>Navigation bar remains visible while scrolling.</p>
+            </div>
+
+            <div class="card">
+                <h3>Hover Effects</h3>
+                <p>Interactive hover animations for better UX.</p>
+            </div>
+
+            <div class="card">
+                <h3>Scroll Detection</h3>
+                <p>Navbar style and menu update on scroll.</p>
+            </div>
+
+            <div class="card">
+                <h3>Responsive Design</h3>
+                <p>Optimized for mobile, tablet, and desktop.</p>
+            </div>
+        </div>
     </section>
 
-    <!-- ===== CONTACT / FOOTER ===== -->
-    <footer id="contact" class="footer">
-        <p>© 2026 Prodigy InfoTech Internship Task</p>
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="contact">
+        <h2>Get in Touch</h2>
+        <p>Created as part of the Web Development Internship at Prodigy InfoTech.</p>
+        <a href="#home" class="btn secondary">Back to Top</a>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>© 2026 Prodigy InfoTech | Web Development Internship</p>
     </footer>
 
-    <!-- Link JavaScript -->
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
