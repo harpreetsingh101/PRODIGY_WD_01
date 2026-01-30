@@ -25,20 +25,27 @@ startBtn.addEventListener("click", () => {
   runCounters();
 });
 
-// ================= NAVIGATION =================
+// ================= NAVIGATION (VIEW SWITCHING) =================
 navBtns.forEach(btn => {
   btn.addEventListener("click", () => {
+    // Active button
     navBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
     const viewId = btn.dataset.view;
 
+    // Show correct view
     views.forEach(view => {
       view.classList.remove("active");
       if (view.id === viewId) {
         view.classList.add("active");
       }
     });
+
+    // Re-run counters if dashboard opened
+    if (viewId === "dashboard") {
+      runCounters();
+    }
   });
 });
 
@@ -59,6 +66,7 @@ function runCounters() {
         counter.innerText = target;
       }
     };
+
     update();
   });
 }
@@ -69,10 +77,13 @@ noteBox.value = localStorage.getItem("userNote") || "";
 saveNoteBtn.addEventListener("click", () => {
   localStorage.setItem("userNote", noteBox.value);
   noteStatus.innerText = "Note saved ✔";
-  setTimeout(() => (noteStatus.innerText = ""), 2000);
+
+  setTimeout(() => {
+    noteStatus.innerText = "";
+  }, 2000);
 });
 
-// ================= THEME TOGGLE =================
+// ================= THEME TOGGLE (PERSISTENT) =================
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "light") {
   document.body.classList.add("light");
@@ -80,13 +91,14 @@ if (savedTheme === "light") {
 
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("light");
+
   localStorage.setItem(
     "theme",
     document.body.classList.contains("light") ? "light" : "dark"
   );
 });
 
-// ================= MODAL =================
+// ================= MODAL (SMOOTH) =================
 openModalBtn.addEventListener("click", () => {
   modal.classList.remove("hidden");
 });
