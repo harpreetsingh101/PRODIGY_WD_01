@@ -1,1 +1,84 @@
-/* Landing Page Styles */
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #1e1e2f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+    color: #00d9ff;
+}
+
+/* ===== SECTIONS ===== */
+section {
+    padding: 100px 40px;
+    min-height: 100vh;
+}
+
+.hero {
+    background-color: #f4f6ff;
+    text-align: center;
+    padding-top: 150px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.about,
+.features {
+    background-color: #ffffff;
+}
+
+.features ul {
+    margin-top: 15px;
+    list-style: disc;
+    padding-left: 20px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background-color: #1e1e2f;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
