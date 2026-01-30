@@ -183,3 +183,63 @@ body.light .nav-btn.active {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* ===== MICRO INTERACTIONS ===== */
+
+/* Button press effect */
+button {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* View transition enhancement */
+.view {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.view.active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Sidebar glow effect */
+.nav-btn:hover {
+  box-shadow: inset 0 0 0 1px rgba(0,242,254,0.3);
+}
+
+/* Dashboard card stagger animation */
+.card {
+  opacity: 0;
+  animation: cardFade 0.5s ease forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cardFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal smooth close */
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
