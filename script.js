@@ -112,3 +112,40 @@ modal.addEventListener("click", (e) => {
     modal.classList.add("hidden");
   }
 });
+// ================= TO-DO TOOL =================
+const todoInput = document.getElementById("todoInput");
+const addTodoBtn = document.getElementById("addTodo");
+const todoList = document.getElementById("todoList");
+
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+function renderTodos() {
+  todoList.innerHTML = "";
+  todos.forEach((todo, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span>${todo}</span>
+      <button onclick="deleteTodo(${index})">X</button>
+    `;
+    todoList.appendChild(li);
+  });
+}
+
+addTodoBtn.addEventListener("click", () => {
+  const task = todoInput.value.trim();
+  if (task === "") return;
+
+  todos.push(task);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  todoInput.value = "";
+  renderTodos();
+});
+
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  renderTodos();
+}
+
+// Load existing todos
+renderTodos();
