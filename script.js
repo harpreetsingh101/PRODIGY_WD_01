@@ -753,3 +753,19 @@ document.addEventListener('keydown', (e) => {
     quickAddNote();
   }
 });
+// ===== MOBILE SIDEBAR TOGGLE =====
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.querySelector(".sidebar");
+
+menuToggle?.addEventListener("click", () => {
+  sidebar.classList.toggle("active");
+});
+
+// Close sidebar when a nav item is clicked (mobile)
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove("active");
+    }
+  });
+});
