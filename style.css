@@ -91,6 +91,8 @@ body {
   line-height: 1.6;
   transition: background-color var(--transition-base), color var(--transition-base);
   overflow-x: hidden;
+  overflow-y: auto;
+
 }
 
 .hidden {
@@ -107,12 +109,16 @@ body {
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.6s ease;
+    overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+   
 }
 
 .onboarding-container {
   max-width: 600px;
   width: 90%;
   padding: var(--space-lg);
+    min-height: 100vh;
 }
 
 /* Progress Bar */
