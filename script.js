@@ -769,3 +769,28 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
     }
   });
 });
+const sidebar = document.querySelector(".sidebar");
+
+const overlay = document.createElement("div");
+overlay.className = "sidebar-overlay";
+document.body.appendChild(overlay);
+
+function toggleSidebar() {
+  sidebar.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+
+// Attach toggle to logo (mobile-friendly)
+document.querySelector(".sidebar-header")?.addEventListener("click", toggleSidebar);
+
+// Close on overlay tap
+overlay.addEventListener("click", toggleSidebar);
+
+// Close sidebar after clicking menu item
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (window.innerWidth <= 768 && sidebar.classList.contains("active")) {
+      toggleSidebar();
+    }
+  });
+});
