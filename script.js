@@ -1,3 +1,28 @@
+// ================= FORCE HOME ON RELOAD =================
+window.addEventListener("load", () => {
+  const entry = document.getElementById("entry");
+  const app = document.getElementById("app");
+
+  // Always reset to home/entry screen
+  entry.classList.remove("hidden");
+  app.classList.add("hidden");
+
+  // Optional: reset active navigation
+  const navBtns = document.querySelectorAll(".nav-btn");
+  const views = document.querySelectorAll(".view");
+
+  navBtns.forEach(btn => btn.classList.remove("active"));
+  views.forEach(view => view.classList.remove("active"));
+
+  // Set Dashboard as default active (but hidden until Start App)
+  const dashboardBtn = document.querySelector('[data-view="dashboard"]');
+  const dashboardView = document.getElementById("dashboard");
+
+  if (dashboardBtn && dashboardView) {
+    dashboardBtn.classList.add("active");
+    dashboardView.classList.add("active");
+  }
+});
 // ===============================================
 // PRODIGY HUB - ADVANCED JAVASCRIPT
 // ===============================================
