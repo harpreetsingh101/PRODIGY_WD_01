@@ -1,208 +1,288 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prodigy Hub | Personal Productivity</title>
+/* ===============================================
+   PRODIGY HUB – FINAL STABLE CSS
+=============================================== */
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+/* ========== CSS VARIABLES ========== */
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #12192b;
+  --bg-tertiary: #1a2238;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-hover: rgba(255,255,255,0.08);
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --text-muted: #718096;
 
-<!-- ================= ONBOARDING ================= -->
-<section id="onboarding" class="onboarding">
-  <div class="onboarding-container">
+  --accent: #00d4ff;
+  --accent-gradient: linear-gradient(135deg,#00d4ff,#0099ff);
 
-    <!-- Progress -->
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+  --border: rgba(255,255,255,0.12);
 
-    <!-- STEP 1 -->
-    <div class="onboarding-step active" data-step="1">
-      <div class="step-content">
-        <div class="logo-mark">P</div>
-        <h1 class="display-title">Welcome to Prodigy</h1>
-        <p class="subtitle">
-          Your personal productivity hub designed to help you focus, create, and achieve.
-        </p>
-        <button class="btn-primary" onclick="nextStep()">Get Started</button>
-      </div>
-    </div>
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
 
-    <!-- STEP 2 -->
-    <div class="onboarding-step" data-step="2">
-      <div class="step-content">
-        <h2>What should we call you?</h2>
-        <p class="subtitle">Personalize your experience</p>
+  --transition: 0.3s ease;
+}
 
-        <input
-          type="text"
-          id="userName"
-          class="input-field"
-          placeholder="Enter your name"
-        />
+/* Light theme */
+body.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-hover: #edf2f7;
 
-        <div class="btn-group">
-          <button class="btn-secondary" onclick="prevStep()">Back</button>
-          <button class="btn-primary" onclick="nextStep()">Continue</button>
-        </div>
-      </div>
-    </div>
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --border: rgba(0,0,0,0.1);
+}
 
-    <!-- STEP 3 -->
-    <div class="onboarding-step" data-step="3">
-      <div class="step-content">
-        <h2>What's your main focus?</h2>
-        <p class="subtitle">We'll personalize your dashboard</p>
+/* ========== RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        <div class="goal-cards">
-          <div class="goal-card" data-goal="productivity">
-            <span class="goal-icon">🎯</span>
-            <h3>Stay Productive</h3>
-            <p>Manage tasks efficiently</p>
-          </div>
+html, body {
+  height: 100%;
+}
 
-          <div class="goal-card" data-goal="creativity">
-            <span class="goal-icon">✨</span>
-            <h3>Boost Creativity</h3>
-            <p>Capture ideas quickly</p>
-          </div>
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
 
-          <div class="goal-card" data-goal="focus">
-            <span class="goal-icon">⏱️</span>
-            <h3>Deep Focus</h3>
-            <p>Build concentration habits</p>
-          </div>
-        </div>
+/* ========== UTIL ========== */
+.hidden {
+  display: none !important;
+}
 
-        <div class="btn-group">
-          <button class="btn-secondary" onclick="prevStep()">Back</button>
-          <button class="btn-primary" onclick="completeOnboarding()">
-            Complete Setup
-          </button>
-        </div>
-      </div>
-    </div>
+/* ========== ONBOARDING ========== */
+.onboarding {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
 
-  </div>
-</section>
+.onboarding-container {
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+}
 
-<!-- ================= APP ================= -->
-<div id="app" class="app hidden">
+.onboarding-step {
+  display: none;
+}
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-mark small">P</div>
-      <h2>Prodigy</h2>
-    </div>
+.onboarding-step.active {
+  display: block;
+}
 
-    <nav class="nav-menu">
-      <button class="nav-btn active" data-view="dashboard">
-        <span class="nav-icon">📊</span> Dashboard
-      </button>
+.step-content {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  text-align: center;
+}
 
-      <button class="nav-btn" data-view="notes">
-        <span class="nav-icon">📝</span> Notes
-        <span class="nav-badge" id="notesBadge">0</span>
-      </button>
+.progress-bar {
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
 
-      <button class="nav-btn" data-view="todo">
-        <span class="nav-icon">✓</span> Tasks
-        <span class="nav-badge" id="todoBadge">0</span>
-      </button>
+.progress-fill {
+  height: 100%;
+  width: 33%;
+  background: var(--accent-gradient);
+  transition: width var(--transition);
+}
 
-      <button class="nav-btn" data-view="focus">
-        <span class="nav-icon">⏱️</span> Focus Timer
-      </button>
+/* ========== BUTTONS ========== */
+button {
+  cursor: pointer;
+}
 
-      <button class="nav-btn" data-view="insights">
-        <span class="nav-icon">📈</span> Insights
-      </button>
-    </nav>
+.btn-primary {
+  background: var(--accent-gradient);
+  border: none;
+  padding: 0.8rem 1.8rem;
+  color: white;
+  border-radius: 999px;
+  font-size: 1rem;
+}
 
-    <div class="sidebar-footer">
-      <button class="nav-btn" data-view="settings">
-        <span class="nav-icon">⚙️</span> Settings
-      </button>
-    </div>
-  </aside>
+.btn-secondary {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+}
 
-  <!-- MAIN -->
-  <main class="main">
+.btn-danger {
+  background: #ef4444;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  color: white;
+}
 
-    <!-- HEADER -->
-    <header class="header">
-      <div class="header-greeting">
-        <h1 id="greetingText">Hello</h1>
-        <p id="dateText"></p>
-      </div>
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
 
-      <div class="header-actions">
-        <!-- Mobile menu -->
-        <button id="menuToggle" class="menu-toggle">☰</button>
+/* ========== INPUTS ========== */
+.input-field,
+.select-field,
+.textarea-field {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
 
-        <button class="icon-btn" id="themeToggle">
-          <span id="themeIcon">🌙</span>
-        </button>
+/* ========== APP LAYOUT ========== */
+.app {
+  display: flex;
+  height: 100vh;
+}
 
-        <div class="user-avatar" id="userAvatar">U</div>
-      </div>
-    </header>
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: 260px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition);
+  z-index: 2000;
+}
 
-    <!-- DASHBOARD -->
-    <section class="view active" id="dashboard"></section>
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
 
-    <!-- NOTES -->
-    <section class="view" id="notes"></section>
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-    <!-- TASKS -->
-    <section class="view" id="todo"></section>
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.8rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
 
-    <!-- FOCUS -->
-    <section class="view" id="focus"></section>
+.nav-btn.active,
+.nav-btn:hover {
+  background: var(--bg-hover);
+  color: var(--accent);
+}
 
-    <!-- INSIGHTS -->
-    <section class="view" id="insights"></section>
+/* ========== MAIN ========== */
+.main {
+  flex: 1;
+  overflow-y: auto;
+}
 
-    <!-- SETTINGS -->
-    <section class="view" id="settings"></section>
+/* ========== HEADER ========== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 10;
+}
 
-  </main>
-</div>
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+}
 
-<!-- NOTE MODAL -->
-<div id="noteModal" class="modal hidden">
-  <div class="modal-overlay"></div>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 id="noteModalTitle">New Note</h2>
-      <button class="modal-close" onclick="closeNoteModal()">×</button>
-    </div>
-    <div class="modal-body">
-      <input id="noteTitleInput" class="input-field" placeholder="Title" />
-      <textarea id="noteContentInput" class="textarea-field" placeholder="Write..."></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeNoteModal()">Cancel</button>
-      <button class="btn-primary" onclick="saveNote()">Save</button>
-    </div>
-  </div>
-</div>
+/* ========== VIEWS ========== */
+.view {
+  display: none;
+  padding: 2rem;
+}
 
-<!-- TOAST -->
-<div id="toast" class="toast hidden">
-  <span id="toastMessage"></span>
-</div>
+.view.active {
+  display: block;
+}
 
-<!-- SCRIPT -->
-<script src="script.js"></script>
-</body>
-</html>
+/* ========== SIDEBAR OVERLAY ========== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1500;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ========== MOBILE FIXES ========== */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .view {
+    padding: 1.2rem;
+  }
+}
