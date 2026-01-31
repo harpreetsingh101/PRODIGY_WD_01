@@ -328,6 +328,44 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+/* ========== MOBILE SIDEBAR FIX ========== */
+@media (max-width: 768px) {
+  .app {
+    position: relative;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    transform: translateX(-100%);
+    z-index: 2000;
+    background: var(--bg-secondary);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1500;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
 
 /* Sidebar */
 .sidebar {
