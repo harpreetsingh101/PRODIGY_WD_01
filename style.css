@@ -1254,3 +1254,39 @@ body {
 
 .modal-body .input-field,
 .modal-body
+/* ===== MOBILE SIDEBAR FIX ===== */
+@media (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main {
+    padding-left: 0 !important;
+  }
+
+  .menu-toggle {
+    display: inline-block;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+/* Hide toggle on desktop */
+.menu-toggle {
+  display: none;
+}
