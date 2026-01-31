@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -123,13 +123,16 @@
     
     <!-- Header Bar -->
     <header class="header">
+      <button id="menuToggle" class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div class="header-greeting">
         <h1 id="greetingText">Good morning, User</h1>
         <p id="dateText">Today is a great day to accomplish things</p>
       </div>
       <div class="header-actions">
-        <button id="menuToggle" class="menu-toggle">☰</button>
-
         <button class="icon-btn" id="themeToggle" title="Toggle theme">
           <span id="themeIcon">🌙</span>
         </button>
@@ -146,7 +149,7 @@
           <div class="stat-icon">✓</div>
           <div class="stat-content">
             <p class="stat-label">Tasks Completed</p>
-            <h3 class="stat-value counter" data-target="0" id="completedCount">0</h3>
+            <h3 class="stat-value" id="completedCount">0</h3>
           </div>
         </div>
         
@@ -154,7 +157,7 @@
           <div class="stat-icon">📝</div>
           <div class="stat-content">
             <p class="stat-label">Notes Created</p>
-            <h3 class="stat-value counter" data-target="0" id="notesCount">0</h3>
+            <h3 class="stat-value" id="notesCount">0</h3>
           </div>
         </div>
         
@@ -162,7 +165,7 @@
           <div class="stat-icon">⏱️</div>
           <div class="stat-content">
             <p class="stat-label">Focus Sessions</p>
-            <h3 class="stat-value counter" data-target="0" id="focusCount">0</h3>
+            <h3 class="stat-value" id="focusCount">0</h3>
           </div>
         </div>
         
@@ -170,7 +173,7 @@
           <div class="stat-icon">🔥</div>
           <div class="stat-content">
             <p class="stat-label">Current Streak</p>
-            <h3 class="stat-value">0 days</h3>
+            <h3 class="stat-value" id="streakCount">0 days</h3>
           </div>
         </div>
       </div>
@@ -208,7 +211,14 @@
         <h2>Today's Focus</h2>
       </div>
       <div class="today-overview" id="todayOverview">
-        <!-- Dynamic content -->
+        <div class="overview-card">
+          <h3>Active Tasks</h3>
+          <ul id="activeTodosList"></ul>
+        </div>
+        <div class="overview-card">
+          <h3>Recent Notes</h3>
+          <ul id="recentNotesList"></ul>
+        </div>
       </div>
       
     </section>
@@ -330,7 +340,7 @@
           <h3>Productivity Score</h3>
           <div class="score-display">
             <div class="score-circle">
-              <span class="score-value">75</span>
+              <span class="score-value" id="productivityScore">75</span>
               <span class="score-label">%</span>
             </div>
           </div>
@@ -412,7 +422,7 @@
 
 <!-- Note Editor Modal -->
 <div id="noteModal" class="modal hidden">
-  <div class="modal-overlay"></div>
+  <div class="modal-overlay" onclick="closeNoteModal()"></div>
   <div class="modal-content note-modal">
     <div class="modal-header">
       <h2 id="noteModalTitle">New Note</h2>
