@@ -3,86 +3,433 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prodigy | Dashboard App</title>
+  <title>Prodigy Hub | Personal Productivity</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- ================= ENTRY SCREEN ================= -->
-<section id="entry" class="entry">
-  <div class="entry-box">
-    <h1>Prodigy App</h1>
-    <p>Interactive Dashboard Web App</p>
-    <button id="startApp">Start App</button>
+<!-- ================= ONBOARDING FLOW ================= -->
+<section id="onboarding" class="onboarding">
+  <div class="onboarding-container">
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <!-- Step 1: Welcome -->
+    <div class="onboarding-step active" data-step="1">
+      <div class="step-content">
+        <div class="logo-mark">P</div>
+        <h1 class="display-title">Welcome to Prodigy</h1>
+        <p class="subtitle">Your personal productivity hub designed to help you focus, create, and accomplish.</p>
+        <button class="btn-primary" onclick="nextStep()">Get Started</button>
+      </div>
+    </div>
+    
+    <!-- Step 2: Name Input -->
+    <div class="onboarding-step" data-step="2">
+      <div class="step-content">
+        <h2>What should we call you?</h2>
+        <p class="subtitle">Personalize your experience</p>
+        <input type="text" id="userName" placeholder="Enter your name" class="input-field" />
+        <div class="btn-group">
+          <button class="btn-secondary" onclick="prevStep()">Back</button>
+          <button class="btn-primary" onclick="nextStep()">Continue</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 3: Goal Selection -->
+    <div class="onboarding-step" data-step="3">
+      <div class="step-content">
+        <h2>What's your main focus?</h2>
+        <p class="subtitle">We'll personalize your dashboard</p>
+        <div class="goal-cards">
+          <div class="goal-card" data-goal="productivity">
+            <span class="goal-icon">🎯</span>
+            <h3>Stay Productive</h3>
+            <p>Manage tasks efficiently</p>
+          </div>
+          <div class="goal-card" data-goal="creativity">
+            <span class="goal-icon">✨</span>
+            <h3>Boost Creativity</h3>
+            <p>Capture ideas quickly</p>
+          </div>
+          <div class="goal-card" data-goal="focus">
+            <span class="goal-icon">⏱️</span>
+            <h3>Deep Focus</h3>
+            <p>Build concentration habits</p>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-secondary" onclick="prevStep()">Back</button>
+          <button class="btn-primary" onclick="completeOnboarding()">Complete Setup</button>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </section>
 
-<!-- ================= APP ================= -->
+<!-- ================= MAIN APP ================= -->
 <div id="app" class="app hidden">
-
-  <!-- SIDEBAR -->
+  
+  <!-- Sidebar Navigation -->
   <aside class="sidebar">
-    <h2>Prodigy</h2>
-    <button class="nav-btn active" data-view="dashboard">Dashboard</button>
-    <button class="nav-btn" data-view="features">Features</button>
-    <button class="nav-btn" data-view="notes">Notes</button>
-    <button class="nav-btn" data-view="todo">To-Do</button>
-    <button class="nav-btn" data-view="settings">Settings</button>
+    <div class="sidebar-header">
+      <div class="logo-mark small">P</div>
+      <h2>Prodigy</h2>
+    </div>
+    
+    <nav class="nav-menu">
+      <button class="nav-btn active" data-view="dashboard">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-btn" data-view="notes">
+        <span class="nav-icon">📝</span>
+        <span>Notes</span>
+        <span class="nav-badge" id="notesBadge">0</span>
+      </button>
+      <button class="nav-btn" data-view="todo">
+        <span class="nav-icon">✓</span>
+        <span>Tasks</span>
+        <span class="nav-badge" id="todoBadge">0</span>
+      </button>
+      <button class="nav-btn" data-view="focus">
+        <span class="nav-icon">⏱️</span>
+        <span>Focus Timer</span>
+      </button>
+      <button class="nav-btn" data-view="insights">
+        <span class="nav-icon">📈</span>
+        <span>Insights</span>
+      </button>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <button class="nav-btn" data-view="settings">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+    </div>
   </aside>
-
-  <!-- MAIN -->
+  
+  <!-- Main Content Area -->
   <main class="main">
-
-    <!-- DASHBOARD -->
+    
+    <!-- Header Bar -->
+    <header class="header">
+      <div class="header-greeting">
+        <h1 id="greetingText">Good morning, User</h1>
+        <p id="dateText">Today is a great day to accomplish things</p>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <div class="user-avatar" id="userAvatar">U</div>
+      </div>
+    </header>
+    
+    <!-- ========== DASHBOARD VIEW ========== -->
     <section class="view active" id="dashboard">
-      <h1>Dashboard</h1>
-      <div class="cards">
-        <div class="card counter" data-target="120">0</div>
-        <div class="card counter" data-target="45">0</div>
-        <div class="card counter" data-target="12">0</div>
+      
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">✓</div>
+          <div class="stat-content">
+            <p class="stat-label">Tasks Completed</p>
+            <h3 class="stat-value counter" data-target="0" id="completedCount">0</h3>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <div class="stat-content">
+            <p class="stat-label">Notes Created</p>
+            <h3 class="stat-value counter" data-target="0" id="notesCount">0</h3>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-content">
+            <p class="stat-label">Focus Sessions</p>
+            <h3 class="stat-value counter" data-target="0" id="focusCount">0</h3>
+          </div>
+        </div>
+        
+        <div class="stat-card highlight">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-content">
+            <p class="stat-label">Current Streak</p>
+            <h3 class="stat-value">0 days</h3>
+          </div>
+        </div>
       </div>
+      
+      <!-- Quick Actions -->
+      <div class="section-header">
+        <h2>Quick Actions</h2>
+      </div>
+      <div class="quick-actions">
+        <button class="action-card" onclick="quickAddTask()">
+          <span class="action-icon">➕</span>
+          <div>
+            <h3>Add Task</h3>
+            <p>Create a new to-do</p>
+          </div>
+        </button>
+        <button class="action-card" onclick="quickAddNote()">
+          <span class="action-icon">📄</span>
+          <div>
+            <h3>New Note</h3>
+            <p>Capture an idea</p>
+          </div>
+        </button>
+        <button class="action-card" onclick="startFocusSession()">
+          <span class="action-icon">🎯</span>
+          <div>
+            <h3>Start Focus</h3>
+            <p>25 min Pomodoro</p>
+          </div>
+        </button>
+      </div>
+      
+      <!-- Today's Overview -->
+      <div class="section-header">
+        <h2>Today's Focus</h2>
+      </div>
+      <div class="today-overview" id="todayOverview">
+        <!-- Dynamic content -->
+      </div>
+      
     </section>
-
-    <!-- FEATURES -->
-    <section class="view" id="features">
-      <h1>Interactive Features</h1>
-      <button id="openModal">Open Modal</button>
-    </section>
-
-    <!-- NOTES -->
+    
+    <!-- ========== NOTES VIEW ========== -->
     <section class="view" id="notes">
-      <h1>User Notes</h1>
-      <textarea id="noteBox" placeholder="Write something..."></textarea>
-      <button id="saveNote">Save</button>
-      <p id="noteStatus"></p>
-    </section>
-
-    <!-- TODO -->
-    <section class="view" id="todo">
-      <h1>To-Do Manager</h1>
-      <div class="todo-box">
-        <input type="text" id="todoInput" placeholder="Enter a task"/>
-        <button id="addTodo">Add</button>
+      <div class="view-header">
+        <div>
+          <h1>Notes</h1>
+          <p>Capture your thoughts and ideas</p>
+        </div>
+        <button class="btn-primary" onclick="createNewNote()">+ New Note</button>
       </div>
-      <ul id="todoList"></ul>
+      
+      <div class="notes-container">
+        <div class="notes-grid" id="notesGrid">
+          <!-- Notes will be dynamically added -->
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state" id="notesEmptyState">
+          <div class="empty-icon">📝</div>
+          <h3>No notes yet</h3>
+          <p>Start capturing your ideas and thoughts</p>
+          <button class="btn-primary" onclick="createNewNote()">Create First Note</button>
+        </div>
+      </div>
     </section>
-
-    <!-- SETTINGS -->
+    
+    <!-- ========== TASKS VIEW ========== -->
+    <section class="view" id="todo">
+      <div class="view-header">
+        <div>
+          <h1>Tasks</h1>
+          <p>Organize your to-do list</p>
+        </div>
+      </div>
+      
+      <div class="todo-input-container">
+        <input type="text" id="todoInput" placeholder="What needs to be done?" class="input-field" />
+        <select id="todoPriority" class="select-field">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button class="btn-primary" id="addTodo">Add Task</button>
+      </div>
+      
+      <div class="todo-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+      
+      <div class="todos-container">
+        <ul class="todo-list" id="todoList">
+          <!-- Tasks will be dynamically added -->
+        </ul>
+        
+        <!-- Empty State -->
+        <div class="empty-state" id="todoEmptyState">
+          <div class="empty-icon">✓</div>
+          <h3>No tasks yet</h3>
+          <p>Add your first task to get started</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ========== FOCUS TIMER VIEW ========== -->
+    <section class="view" id="focus">
+      <div class="view-header">
+        <div>
+          <h1>Focus Timer</h1>
+          <p>Stay focused with the Pomodoro technique</p>
+        </div>
+      </div>
+      
+      <div class="timer-container">
+        <div class="timer-circle">
+          <svg class="timer-svg" viewBox="0 0 200 200">
+            <circle class="timer-bg" cx="100" cy="100" r="90"></circle>
+            <circle class="timer-progress" cx="100" cy="100" r="90" id="timerProgress"></circle>
+          </svg>
+          <div class="timer-content">
+            <h2 class="timer-display" id="timerDisplay">25:00</h2>
+            <p class="timer-label" id="timerLabel">Focus Time</p>
+          </div>
+        </div>
+        
+        <div class="timer-controls">
+          <button class="btn-timer" id="startTimer">Start Focus</button>
+          <button class="btn-timer secondary" id="resetTimer">Reset</button>
+        </div>
+        
+        <div class="timer-stats">
+          <div class="timer-stat">
+            <span class="stat-number" id="sessionsToday">0</span>
+            <span class="stat-text">Sessions Today</span>
+          </div>
+          <div class="timer-stat">
+            <span class="stat-number" id="totalMinutes">0</span>
+            <span class="stat-text">Total Minutes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ========== INSIGHTS VIEW ========== -->
+    <section class="view" id="insights">
+      <div class="view-header">
+        <div>
+          <h1>Insights</h1>
+          <p>Track your productivity patterns</p>
+        </div>
+      </div>
+      
+      <div class="insights-grid">
+        <div class="insight-card">
+          <h3>Productivity Score</h3>
+          <div class="score-display">
+            <div class="score-circle">
+              <span class="score-value">75</span>
+              <span class="score-label">%</span>
+            </div>
+          </div>
+          <p>Keep up the good work!</p>
+        </div>
+        
+        <div class="insight-card">
+          <h3>Most Productive Time</h3>
+          <div class="time-indicator">
+            <span class="time-value">Morning</span>
+            <span class="time-hours">9 AM - 12 PM</span>
+          </div>
+        </div>
+        
+        <div class="insight-card">
+          <h3>Week Overview</h3>
+          <div class="week-chart">
+            <div class="bar" style="height: 60%"><span>M</span></div>
+            <div class="bar" style="height: 80%"><span>T</span></div>
+            <div class="bar" style="height: 40%"><span>W</span></div>
+            <div class="bar" style="height: 90%"><span>T</span></div>
+            <div class="bar" style="height: 70%"><span>F</span></div>
+            <div class="bar" style="height: 30%"><span>S</span></div>
+            <div class="bar" style="height: 20%"><span>S</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ========== SETTINGS VIEW ========== -->
     <section class="view" id="settings">
-      <h1>Settings</h1>
-      <button id="themeToggle">Toggle Theme</button>
+      <div class="view-header">
+        <div>
+          <h1>Settings</h1>
+          <p>Customize your experience</p>
+        </div>
+      </div>
+      
+      <div class="settings-container">
+        <div class="setting-group">
+          <h3>Appearance</h3>
+          <div class="setting-item">
+            <div>
+              <p class="setting-label">Theme</p>
+              <p class="setting-desc">Choose your preferred color scheme</p>
+            </div>
+            <button class="btn-secondary" id="themeSettingToggle">Toggle Theme</button>
+          </div>
+        </div>
+        
+        <div class="setting-group">
+          <h3>Account</h3>
+          <div class="setting-item">
+            <div>
+              <p class="setting-label">Name</p>
+              <p class="setting-desc" id="settingsUserName">User</p>
+            </div>
+            <button class="btn-secondary" onclick="editUserName()">Edit</button>
+          </div>
+        </div>
+        
+        <div class="setting-group">
+          <h3>Data</h3>
+          <div class="setting-item">
+            <div>
+              <p class="setting-label">Reset All Data</p>
+              <p class="setting-desc">Clear all tasks, notes, and settings</p>
+            </div>
+            <button class="btn-danger" onclick="resetAllData()">Reset</button>
+          </div>
+        </div>
+      </div>
     </section>
-
+    
   </main>
 </div>
 
-<!-- MODAL -->
-<div id="modal" class="modal hidden">
-  <div class="modal-box">
-    <p>This is a working modal</p>
-    <button id="closeModal">Close</button>
+<!-- ================= MODALS ================= -->
+
+<!-- Note Editor Modal -->
+<div id="noteModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content note-modal">
+    <div class="modal-header">
+      <h2 id="noteModalTitle">New Note</h2>
+      <button class="modal-close" onclick="closeNoteModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="noteTitleInput" placeholder="Note title" class="input-field" />
+      <textarea id="noteContentInput" placeholder="Start writing..." class="textarea-field"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeNoteModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveNote()">Save Note</button>
+    </div>
   </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast hidden">
+  <span id="toastMessage"></span>
 </div>
 
 <script src="script.js"></script>
